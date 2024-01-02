@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
+    implementation("net.jthink:jaudiotagger:3.0.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
