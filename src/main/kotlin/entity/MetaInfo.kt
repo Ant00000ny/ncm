@@ -1,3 +1,5 @@
+package entity
+
 data class MetaInfo(
     var musicId: Int?,
     var musicName: String?,

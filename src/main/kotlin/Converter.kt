@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import entity.MetaInfo
 import org.jaudiotagger.audio.AudioFileIO
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture
 import org.jaudiotagger.tag.FieldKey
@@ -20,7 +21,7 @@ fun main() {
 }
 
 fun convertNcm(ncmFile: File, outputDir: File = ncmFile.parentFile) {
-    ncmFile.inputStream().use { fis ->
+    val convertTask = ncmFile.inputStream().use { fis ->
         val magicHeader = ByteArray(10)
             .also { fis.read(it) }
 
