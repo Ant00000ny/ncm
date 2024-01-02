@@ -3,7 +3,7 @@ package util
 class RC4 {
     private val box = IntArray(256)
 
-    fun KSA(key: ByteArray) {
+    private fun ksa(key: ByteArray) {
         val len = key.size
         for (i in 0..255) {
             box[i] = i
@@ -19,15 +19,22 @@ class RC4 {
         }
     }
 
-    fun PRGA(data: ByteArray) {
+    private fun prga(data: ByteArray): ByteArray {
+        val dataCopy = data.copyOf()
         var k = 0
         var i: Int
         var j: Int
-        while (k < data.size) {
+        while (k < dataCopy.size) {
             i = (k + 1) and 0xff
             j = (box[i] + i) and 0xff
-            data[k] = (data[k].toInt() xor box[box[i] + box[j] and 0xff]).toByte()
+            dataCopy[k] = (dataCopy[k].toInt() xor box[box[i] + box[j] and 0xff]).toByte()
             k++
         }
+        return dataCopy
+    }
+
+    fun doApply(key: ByteArray, data: ByteArray): ByteArray {
+        ksa(key)
+        return prga(data)
     }
 }
