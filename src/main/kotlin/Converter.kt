@@ -18,6 +18,7 @@ import kotlin.experimental.xor
 
 fun main() {
     val ncmFile = File(object {}.javaClass.classLoader.getResource("ずっと真夜中でいいのに。 - 脳裏上のクラッカー.ncm")!!.toURI())
+    convertNcm(ncmFile)
 }
 
 fun convertNcm(ncmFile: File, outputDir: File = ncmFile.parentFile) {
@@ -71,7 +72,7 @@ fun convertNcm(ncmFile: File, outputDir: File = ncmFile.parentFile) {
         val albumCover = ByteArray(imageSize)
             .also { fis.read(it) }
 
-        val outputFile = outputDir.resolve("${metaInfo.musicName}.${metaInfo.format}")
+        val outputFile = outputDir.resolve("${ncmFile.nameWithoutExtension}.${metaInfo.format}")
             .also { it.parentFile.mkdirs() }
             .also { it.createNewFile() }
 
@@ -89,7 +90,7 @@ private fun addMetaInfo(metaInfo: MetaInfo, outputFile: File, albumCover: ByteAr
     val tag = audioFile.tag
     tag.setField(FieldKey.ALBUM, metaInfo.album)
     tag.setField(FieldKey.TITLE, metaInfo.musicName)
-    tag.setField(FieldKey.ARTIST, metaInfo.artist!![0][0])
+    tag.setField(FieldKey.ARTIST, metaInfo.artist[0][0])
     val albumCoverBufferedImage = albumCover.inputStream().use {
         ImageIO.read(it)
     }
