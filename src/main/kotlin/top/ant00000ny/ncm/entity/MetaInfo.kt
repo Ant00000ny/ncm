@@ -1,4 +1,4 @@
-package entity
+package top.ant00000ny.ncm.entity
 
 data class MetaInfo(
     var musicId: Int,

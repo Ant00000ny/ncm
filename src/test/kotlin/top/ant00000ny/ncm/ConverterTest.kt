@@ -1,3 +1,5 @@
+package top.ant00000ny.ncm
+
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertTrue

@@ -1,4 +1,4 @@
-package util
+package top.ant00000ny.ncm.util
 
 class RC4 {
     private val box = IntArray(256)

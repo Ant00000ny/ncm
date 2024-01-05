@@ -1,12 +1,14 @@
+package top.ant00000ny.ncm
+
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import entity.MetaInfo
+import top.ant00000ny.ncm.entity.MetaInfo
 import org.jaudiotagger.audio.AudioFileIO
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture
 import org.jaudiotagger.tag.FieldKey
 import org.jaudiotagger.tag.images.ArtworkFactory
-import util.Constants
-import util.RC4
+import top.ant00000ny.ncm.util.Constants
+import top.ant00000ny.ncm.util.RC4
 import java.io.File
 import java.math.BigInteger
 import java.nio.file.Path
