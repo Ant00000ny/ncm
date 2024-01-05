@@ -9,20 +9,15 @@ import util.Constants
 import util.RC4
 import java.io.File
 import java.math.BigInteger
+import java.nio.file.Path
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import javax.imageio.ImageIO
 import kotlin.experimental.xor
 
-
-fun main() {
-    val ncmFile = File(object {}.javaClass.classLoader.getResource("ずっと真夜中でいいのに。 - 脳裏上のクラッカー.ncm")!!.toURI())
-    convertNcm(ncmFile)
-}
-
-fun convertNcm(ncmFile: File, outputDir: File = ncmFile.parentFile) {
-    val convertTask = ncmFile.inputStream().use { fis ->
+fun convertNcm(ncmFile: File, outputDir: Path = ncmFile.parentFile.toPath()): File {
+    ncmFile.inputStream().use { fis ->
         val magicHeader = ByteArray(10)
             .also { fis.read(it) }
 
@@ -73,6 +68,7 @@ fun convertNcm(ncmFile: File, outputDir: File = ncmFile.parentFile) {
             .also { fis.read(it) }
 
         val outputFile = outputDir.resolve("${ncmFile.nameWithoutExtension}.${metaInfo.format}")
+            .toFile()
             .also { it.parentFile.mkdirs() }
             .also { it.createNewFile() }
 
@@ -82,6 +78,8 @@ fun convertNcm(ncmFile: File, outputDir: File = ncmFile.parentFile) {
         }
 
         addMetaInfo(metaInfo, outputFile, albumCover)
+
+        return outputFile
     }
 }
 
